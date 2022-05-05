@@ -2,6 +2,7 @@ package dao;
 
 import db.DBConnection;
 import model.CustomerDTO;
+import view.tdm.CustomerTM;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -31,5 +32,14 @@ public class CustomerDAOImpl {
         pstm.executeUpdate();
         }
 
+    public boolean updateCustomer(CustomerDTO dto) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement pstm = connection.prepareStatement("UPDATE Customer SET name=?, address=? WHERE id=?");
+        pstm.setString(1, dto.getName());
+        pstm.setString(2, dto.getAddress());
+        pstm.setString(3, dto.getId());
+         return pstm.executeUpdate()>0;
     }
-    
+
+    }
+
