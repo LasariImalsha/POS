@@ -1,5 +1,6 @@
 package dao;
 
+import com.jfoenix.controls.JFXTextField;
 import db.DBConnection;
 import model.CustomerDTO;
 import model.ItemDTO;
@@ -10,6 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class ItemDAOImpl {
+
 
     public ArrayList<ItemDTO> getAllItems() throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
@@ -42,6 +44,7 @@ public class ItemDAOImpl {
         pstm.setInt(4, dto.getQtyOnHand());
         pstm.executeUpdate();
     }
+
     public boolean updateItem(ItemDTO dto) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
         PreparedStatement pstm = connection.prepareStatement("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?");
@@ -50,6 +53,13 @@ public class ItemDAOImpl {
         pstm.setInt(3, dto.getQtyOnHand());
         pstm.setString(4, dto.getCode());
         return pstm.executeUpdate()>0;
+    }
+
+    public boolean existItem(String code) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getDbConnection().getConnection();
+        PreparedStatement pstm = connection.prepareStatement("SELECT code FROM Item WHERE code=?");
+        pstm.setString(1, code);
+        return pstm.executeQuery().next();
     }
 
 }
