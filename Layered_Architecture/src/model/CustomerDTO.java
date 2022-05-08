@@ -1,6 +1,7 @@
 package model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * @author : Sanu Vithanage
@@ -12,7 +13,7 @@ public class CustomerDTO implements Serializable {
     private String name;
     private String address;
 
-    public CustomerDTO() {
+    public CustomerDTO(String code, String description, BigDecimal unitPrice, int qtyOnHand) {
     }
 
     public CustomerDTO(String id, String name, String address) {
@@ -53,4 +54,5 @@ public class CustomerDTO implements Serializable {
                 ", address='" + address + '\'' +
                 '}';
     }
+
 }
