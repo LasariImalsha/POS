@@ -61,6 +61,7 @@ public class CustomerDAOImpl implements CustomerDAO {
         return pstm.executeUpdate()>0;
     }
 
+    //test
     @Override
     public String generateNewId() throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getDbConnection().getConnection();
