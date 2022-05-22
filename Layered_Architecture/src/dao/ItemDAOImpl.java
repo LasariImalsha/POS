@@ -1,5 +1,6 @@
 package dao;
 
+import db.DBConnection;
 import model.CustomerDTO;
 import model.ItemDTO;
 
@@ -13,7 +14,7 @@ public class ItemDAOImpl implements CrudDAO<ItemDTO,String> {
         ResultSet rst = SQLUtill.executeQuery("SELECT * FROM Item");
         ArrayList<ItemDTO> allItems = new ArrayList<>();
         while (rst.next()) {
-            allItems.add(new ItemDTO(rst.getString(1), rst.getString(2), rst.getBigDecimal(3), rst.getInt(4)));
+            allItems.add(new ItemDTO(rst.getString(1), rst.getString(2), rst.getBigDecimal(4), rst.getInt(3)));
         }
         return allItems;
     }
@@ -31,6 +32,16 @@ public class ItemDAOImpl implements CrudDAO<ItemDTO,String> {
     @Override
     public boolean update(ItemDTO dto) throws SQLException, ClassNotFoundException {
         return SQLUtill.executeUpdate("UPDATE Item SET description=?, unitPrice=?, qtyOnHand=? WHERE code=?",dto.getDescription(),dto.getUnitPrice(),dto.getQtyOnHand(),dto.getCode());
+    }
+
+    @Override
+    public ItemDTO search(String code) throws SQLException, ClassNotFoundException {
+
+        ResultSet rst = SQLUtill.executeQuery("SELECT * FROM Item WHERE code=?",code);
+        if(rst.next()){
+            return new ItemDTO(rst.getString(1), rst.getString(2),rst.getBigDecimal(4),rst.getInt(3));
+        }
+        return null;
     }
 
     @Override
