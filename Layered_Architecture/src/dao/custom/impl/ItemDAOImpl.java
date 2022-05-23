@@ -1,15 +1,15 @@
-package dao;
+package dao.custom.impl;
 
-import db.DBConnection;
-import model.CustomerDTO;
+import dao.SQLUtill;
+import dao.custom.ItemDAO;
 import model.ItemDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ItemDAOImpl implements CrudDAO<ItemDTO,String> {
+public class ItemDAOImpl implements ItemDAO {
 
-    @Override
+   @Override
     public ArrayList<ItemDTO> getAll() throws SQLException, ClassNotFoundException {
         ResultSet rst = SQLUtill.executeQuery("SELECT * FROM Item");
         ArrayList<ItemDTO> allItems = new ArrayList<>();
@@ -61,5 +61,10 @@ public class ItemDAOImpl implements CrudDAO<ItemDTO,String> {
             return "I00-001";
         }
 
+    }
+
+    @Override
+    public ArrayList<ItemDTO> getItemFromPrice(double price) throws ClassNotFoundException, SQLException {
+        return null;
     }
 }

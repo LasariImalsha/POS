@@ -1,17 +1,15 @@
-package dao;
+package dao.custom.impl;
 
-import db.DBConnection;
-import model.CustomerDTO;
+import dao.SQLUtill;
+import dao.custom.OrderDAO;
 import model.OrderDTO;
-import model.OrderDetailDTO;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 
-public class OrderDAOImpl implements CrudDAO<OrderDTO,String> {
+public class OrderDAOImpl implements OrderDAO {
+
     @Override
     public ArrayList<OrderDTO> getAll() throws SQLException, ClassNotFoundException {
         return null;
@@ -52,4 +50,8 @@ public class OrderDAOImpl implements CrudDAO<OrderDTO,String> {
         return rst.next() ? String.format("OID-%03d", (Integer.parseInt(rst.getString("oid").replace("OID-", "")) + 1)) : "OID-001";
 
     }
+
 }
+
+
+
